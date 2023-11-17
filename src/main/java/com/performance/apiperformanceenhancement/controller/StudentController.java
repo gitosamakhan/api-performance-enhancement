@@ -1,7 +1,6 @@
 package com.performance.apiperformanceenhancement.controller;
 
-import com.performance.apiperformanceenhancement.dao.StudentDao;
-import com.performance.apiperformanceenhancement.domain.Student;
+import com.performance.apiperformanceenhancement.service.KafkaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     @Autowired
-    private StudentDao studentDao;
+    private KafkaService kafkaService;
 
     @PostMapping
-    public void saveStudent(@RequestBody Student student) {
-        studentDao.save(student);
+    public void saveStudent(@RequestBody String student) {
+        kafkaService.sendMessage(student);
     }
 }
